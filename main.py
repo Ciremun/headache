@@ -1,51 +1,81 @@
 import re
+import datetime
 import matplotlib.pyplot as plt
+from matplotlib.dates import date2num
 from typing import List, NamedTuple
 
 year_re = re.compile(r'\d{4}')
 note_re = re.compile(r'(\d{2}) ([a-z]{3}) (\d{1,2}) (\d{1,2}):(\d{2}) (\w+)')
+months = {
+    "jan": 1,
+    "feb": 2,
+    "mar": 3,
+    "apr": 4,
+    "may": 5,
+    "jun": 6,
+    "jul": 7,
+    "aug": 8,
+    "sep": 9,
+    "oct": 10,
+    "nov": 11,
+    "dec": 12,
+}
 
+colors = {
+    'ne': '00ff00',
+    'ib': 'ff0000',
+    'null': 'ffffff',
+}
 
 class Note(NamedTuple):
-    day: str
-    month: str
-    points: str
-    hours: str
-    minutes: str
-    cure: str
-    year: str
+    date: datetime.datetime
+    points: int
+    med: str
 
 
-def read_input(file: str) -> List[str]:
-    lines = open(file).read().split('\n')
+def read_input(file: str) -> List[Note]:
     notes = []
-    year = lines[0]
-    for line in lines[1:]:
+    year = None
+    for line in open(file).read().split('\n'):
         if re.match(year_re, line):
             year = line
         elif note := re.match(note_re, line):
+            day, month, points, hour, minute, med = note.groups()
             notes.append(Note(
-                note.group(1),
-                note.group(2),
-                note.group(3),
-                note.group(4),
-                note.group(5),
-                note.group(6),
-                year
+                datetime.datetime(
+                        int(year),
+                        months[month],
+                        int(day),
+                        hour=int(hour),
+                        minute=int(minute)
+                    ),
+                int(points),
+                med
             ))
-
+    return notes
 
 def main():
 
-    fig, ax = plt.subplots()
-
-    ax.spines['right'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-
+    plt.style.use('dark_background')
     notes = read_input('input.txt')
 
-    plt.scatter(2.0, 1.0)
-    plt.savefig('output.png', fmt='png')
+    x = []
+    y = []
+
+    for note in notes:
+        x.append(date2num(note.date))
+        y.append(note.points)
+
+    fig = plt.figure()
+
+    graph = fig.add_subplot(111)
+    graph.plot(x, y, 'g-o')
+    graph.set_xticks(x)
+    graph.set_xticklabels(
+            [note.date.strftime("%Y-%m-%d") for note in notes]
+            )
+    # plt.savefig('output.png')
+    plt.xticks(rotation=45)
     plt.show()
 
 
