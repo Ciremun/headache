@@ -22,9 +22,9 @@ months = {
 }
 
 colors = {
-    'ne': '00ff00',
-    'ib': 'ff0000',
-    'null': 'ffffff',
+    'ne': '#00ff00',
+    'ib': '#ff0000',
+    'null': '#ffffff',
 }
 
 class Note(NamedTuple):
@@ -56,7 +56,7 @@ def read_input(file: str) -> List[Note]:
 
 def main():
 
-    plt.style.use('dark_background')
+    # plt.style.use('dark_background')
     notes = read_input('input.txt')
 
     x = []
@@ -69,13 +69,14 @@ def main():
     fig = plt.figure()
 
     graph = fig.add_subplot(111)
-    graph.plot(x, y, 'g-o')
+    graph.scatter(x, y, c=[colors.get(note.med) for note in notes], edgecolors='#000000')
+    graph.plot(x, y)
     graph.set_xticks(x)
     graph.set_xticklabels(
             [note.date.strftime("%Y-%m-%d") for note in notes]
             )
-    # plt.savefig('output.png')
     plt.xticks(rotation=45)
+    plt.savefig('output.png')
     plt.show()
 
 
