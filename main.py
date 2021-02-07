@@ -27,6 +27,7 @@ colors = {
     'null': '#ffffff',
 }
 
+
 class Note(NamedTuple):
     date: datetime.datetime
     points: int
@@ -43,16 +44,17 @@ def read_input(file: str) -> List[Note]:
             day, month, points, hour, minute, med = note.groups()
             notes.append(Note(
                 datetime.datetime(
-                        int(year),
-                        months[month],
-                        int(day),
-                        hour=int(hour),
-                        minute=int(minute)
-                    ),
+                    int(year),
+                    months[month],
+                    int(day),
+                    hour=int(hour),
+                    minute=int(minute)
+                ),
                 int(points),
                 med
             ))
     return notes
+
 
 def main():
 
@@ -67,14 +69,16 @@ def main():
         y.append(note.points)
 
     fig = plt.figure()
+    fig.set_size_inches(18.5, 10.5)
 
     graph = fig.add_subplot(111)
-    graph.scatter(x, y, c=[colors.get(note.med) for note in notes], edgecolors='#000000')
+    graph.scatter(x, y, c=[colors.get(note.med)
+                           for note in notes], edgecolors='#000000')
     graph.plot(x, y)
     graph.set_xticks(x)
     graph.set_xticklabels(
-            [note.date.strftime("%Y-%m-%d") for note in notes]
-            )
+        [note.date.strftime("%Y-%m-%d") for note in notes]
+    )
     plt.xticks(rotation=45)
     plt.savefig('output.png')
     plt.show()
