@@ -87,3 +87,5 @@ def read_input(lines):
             db.add_note(date, int(points), med)
 
 read_input(lines)
+
+#heroku pepega
