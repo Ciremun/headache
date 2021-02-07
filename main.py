@@ -5,6 +5,7 @@ if __name__ == '__main__':
     from dotenv import load_dotenv
     
     import src.config
+    import src.server
     from src.client import client
     
     load_dotenv(join(dirname(__name__), '.env'))
