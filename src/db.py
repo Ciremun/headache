@@ -1,19 +1,33 @@
-import sqlite3
+import os
+import psycopg2
 import threading
 from datetime import datetime
 from typing import Callable, Any, List, Tuple
 
 from .log import logger
 
-conn = sqlite3.connect('headache.db', isolation_level=None, check_same_thread=False, detect_types=sqlite3.PARSE_DECLTYPES)
-cursor = conn.cursor()
+conn = None
+cursor = None
 lock = threading.Lock()
+
+
+def db_connect():
+    global conn, cursor
+    if conn is not None:
+        conn.close()
+    conn = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
+    conn.autocommit = True
+    cursor = conn.cursor()
 
 
 def db(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> Any:
         try:
             lock.acquire(True)
+            return func(*args, **kwargs)
+        except psycopg2.OperationalError:
+            logger.info('try reconnect')
+            db_connect()
             return func(*args, **kwargs)
         except Exception as e:
             logger.error(e)
@@ -36,7 +50,7 @@ def db_init() -> None:
 @db
 def add_note(date: datetime, points: int, med: str) -> None:
     cursor.execute(
-        'insert into notes (d, points, med) values (?, ?, ?)', (date, points, med))
+        'insert into notes (d, points, med) values (%s, %s, %s)', (date, points, med))
 
 @db
 def get_notes() -> List[Tuple[datetime, int, str]]:
