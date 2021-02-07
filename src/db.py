@@ -40,7 +40,7 @@ def db(func: Callable) -> Callable:
 def db_init() -> None:
 
     tables = [
-        'create table if not exists notes (id integer primary key, d timestamp, points integer, med text)'
+        'create table if not exists notes (id serial primary key, d timestamp, points integer, med text)'
     ]
 
     for q in tables:
