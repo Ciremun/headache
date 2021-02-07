@@ -57,4 +57,5 @@ def get_notes() -> List[Tuple[datetime, int, str]]:
     cursor.execute('select d, points, med from notes')
     return cursor.fetchall()
 
+db_connect()
 db_init()
