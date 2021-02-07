@@ -56,7 +56,7 @@ async def plot_command(message: discord.Message) -> None:
         return
     notes = [Note(*n) for n in notes]
     gen_plot(notes)
-    plot_img = Image.open('plot.png')
+    plot_img = Image.open('flask/plot.png')
     with BytesIO() as image_binary:
         plot_img.save(image_binary, 'PNG')
         image_binary.seek(0)

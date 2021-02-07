@@ -1,12 +1,12 @@
 import os
 from threading import Thread
 
-from flask import Flask, Response
+from flask import Flask, Response, send_from_directory, render_template
 from gevent.pywsgi import WSGIServer
 
 from .log import logger
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../flask', template_folder='../flask/templates')
 
 def run():
     wsgi = WSGIServer(('0.0.0.0', int(os.environ.get('PORT'))), app)
@@ -15,7 +15,11 @@ def run():
 
 @app.route('/')
 def uwu():
-    return Response(200)
+    return render_template('index.html')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 serverThread = Thread(target=run)
 serverThread.start()

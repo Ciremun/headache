@@ -31,4 +31,4 @@ def gen_plot(notes: List[Note]) -> None:
     graph.set_xticklabels([note.date.strftime("%Y-%m-%d") for note in notes])
 
     plt.xticks(rotation=45)
-    plt.savefig('plot.png')
+    plt.savefig('flask/plot.png')
