@@ -1,3 +1,7 @@
+__pycache__
 .vscode/
 .venv/
-output.png
+log/
+plot.png
+.env
+headache.db
