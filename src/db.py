@@ -40,7 +40,8 @@ def db(func: Callable) -> Callable:
 def db_init() -> None:
 
     tables = [
-        'create table if not exists notes (id serial primary key, d timestamp, points integer, med text)'
+        'create table if not exists notes (id serial primary key, d timestamp, points integer, med text)',
+        'create table if not exists meds (id serial primary key, color text, med text)'
     ]
 
     for q in tables:
@@ -67,6 +68,22 @@ def delete_note(note_id: int) -> None:
 def get_max_note_id() -> Tuple[int]:
     cursor.execute('select max(id) from notes')
     return cursor.fetchone()
+
+
+@db
+def add_med(color: str, med: str) -> None:
+    cursor.execute('insert into meds (color, med) values (%s, %s)', (color, med))
+
+
+@db
+def delete_med(med: str) -> None:
+    cursor.execute('delete from meds where med = %s', (med,))
+
+
+@db
+def get_meds() -> List[Tuple[str, str]]:
+    cursor.execute('select color, med from meds')
+    return cursor.fetchall()
 
 
 db_connect()

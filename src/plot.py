@@ -2,19 +2,15 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import date2num
 from typing import List
 
+import src.db as db
 from .classes import Note
-
-colors = {
-    'ne': '#00ff00',
-    'ib': '#ff0000',
-    'null': '#ffffff',
-}
 
 
 def gen_plot(notes: List[Note]) -> None:
 
     x = []
     y = []
+    colors = {med: color for color, med in db.get_meds()}
 
     for note in notes:
         x.append(date2num(note.date))
