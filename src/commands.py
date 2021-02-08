@@ -64,3 +64,6 @@ async def plot_command(message: discord.Message) -> None:
 
 # TODO(#3): color command
 # add/remove/update color-med pairs
+
+# TODO(#6): pop command
+# remove last added note
