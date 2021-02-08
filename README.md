@@ -25,5 +25,6 @@
 |   cmd     |                  args                     |         description            |
 |-----------|-------------------------------------------|--------------------------------|
 | `add`     | `<points> <med>`                          | add plot note                  |
+| `pop`     |                                           | delete last note               |
 | `plot`    |                                           | generate plot image            |
 | `exec`    | `code block`                              | execute Python code            |
