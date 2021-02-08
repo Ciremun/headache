@@ -30,7 +30,7 @@ def db(func: Callable) -> Callable:
             db_connect()
             return func(*args, **kwargs)
         except Exception as e:
-            logger.error(e)
+            logger.error(e, exc_info=1)
         finally:
             lock.release()
     return wrapper

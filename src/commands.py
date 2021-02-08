@@ -25,7 +25,7 @@ def command(name: str) -> Callable:
                 return await func(message)
             except Exception as e:
                 await send_error(e, message)
-                logger.error(e)
+                logger.error(e, exc_info=1)
             finally:
                 await message.delete()
         wrapper.__name__ = func.__name__
