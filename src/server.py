@@ -24,3 +24,5 @@ def favicon():
 
 serverThread = Thread(target=run)
 serverThread.start()
+
+# TODO(#5): fit image to screen
