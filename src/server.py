@@ -23,3 +23,5 @@ def favicon():
 
 serverThread = Thread(target=run)
 serverThread.start()
+
+# TODO(#4): disable heroku page cache
