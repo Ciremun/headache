@@ -32,3 +32,5 @@ def gen_plot(notes: List[Note]) -> None:
 
     plt.xticks(rotation=45)
     plt.savefig('flask/plot.png')
+
+# TODO(#2): colors legend
