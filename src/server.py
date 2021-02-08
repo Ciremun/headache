@@ -7,6 +7,7 @@ from gevent.pywsgi import WSGIServer
 from .log import logger
 
 app = Flask(__name__, static_folder='../flask', template_folder='../flask/templates')
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 def run():
     wsgi = WSGIServer(('0.0.0.0', int(os.environ.get('PORT'))), app)
@@ -23,5 +24,3 @@ def favicon():
 
 serverThread = Thread(target=run)
 serverThread.start()
-
-# TODO(#4): disable heroku page cache
