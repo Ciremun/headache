@@ -62,8 +62,13 @@ async def plot_command(message: discord.Message) -> None:
         image_binary.seek(0)
         await message.channel.send(file=discord.File(fp=image_binary, filename='plot.png'))
 
+@command('pop')
+async def pop_command(message: discord.Message) -> None:
+    max_note_id = db.get_max_note_id()
+    if not max_note_id:
+        await send_error('you have no notes', message)
+        return
+    db.delete_note(max_note_id[0])
+
 # TODO(#3): color command
 # add/remove/update color-med pairs
-
-# TODO(#6): pop command
-# remove last added note

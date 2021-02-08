@@ -57,5 +57,17 @@ def get_notes() -> List[Tuple[datetime, int, str]]:
     cursor.execute('select d, points, med from notes')
     return cursor.fetchall()
 
+
+@db
+def delete_note(note_id: int) -> None:
+    cursor.execute('delete from notes where id = %s', (note_id,))
+
+
+@db
+def get_max_note_id() -> Tuple[int]:
+    cursor.execute('select max(id) from notes')
+    return cursor.fetchone()
+
+
 db_connect()
 db_init()
