@@ -61,3 +61,6 @@ async def plot_command(message: discord.Message) -> None:
         plot_img.save(image_binary, 'PNG')
         image_binary.seek(0)
         await message.channel.send(file=discord.File(fp=image_binary, filename='plot.png'))
+
+# TODO(#3): color command
+# add/remove/update color-med pairs
