@@ -70,5 +70,35 @@ async def pop_command(message: discord.Message) -> None:
         return
     db.delete_note(max_note_id[0])
 
+
+# @command('color')
+async def color_command(message: discord.Message) -> None:
+    meds = db.get_meds()
+    if not meds:
+        await send_error('you have no meds', message)
+        return
+    parts = message.content.split(' ')
+    parts_len = len(parts)
+    if parts_len == 1:
+        await message.channel.send('\n'.join(f'{med[1]} - {med[0]}' for med in meds))
+        return
+    target_med = parts[1]
+    med_exists = any(med == target_med for med in meds)
+    if parts_len == 2:
+        if med_exists:
+            # delete
+            pass
+        else:
+            # not found
+            pass
+        return
+    new_color = parts[2]
+    if med_exists:
+        # update
+        pass
+    else:
+        # add
+        pass
+
 # TODO(#3): color command
 # add/remove/update color-med pairs
