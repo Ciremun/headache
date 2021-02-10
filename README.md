@@ -1,6 +1,6 @@
 # headache
 
-![image](flask/plot.png)
+![image](plot.png)
 
 ## Install
 

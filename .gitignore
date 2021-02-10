@@ -1,5 +1,6 @@
 __pycache__
 .vscode/
 .venv/
+flask/plot.png
 log/
 .env
