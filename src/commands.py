@@ -95,3 +95,5 @@ async def color_command(message: discord.Message) -> None:
         db.update_med(new_color, target_med)
     else:
         db.add_med(new_color, target_med)
+
+# TODO(#7): document the color command
