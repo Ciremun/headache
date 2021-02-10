@@ -76,6 +76,11 @@ def add_med(color: str, med: str) -> None:
 
 
 @db
+def update_med(new_color: str, med: str) -> None:
+    cursor.execute('update meds set color = %s where med = %s', (new_color, med))
+
+
+@db
 def delete_med(med: str) -> None:
     cursor.execute('delete from meds where med = %s', (med,))
 

@@ -71,7 +71,7 @@ async def pop_command(message: discord.Message) -> None:
     db.delete_note(max_note_id[0])
 
 
-# @command('color')
+@command('color')
 async def color_command(message: discord.Message) -> None:
     meds = db.get_meds()
     if not meds:
@@ -86,19 +86,13 @@ async def color_command(message: discord.Message) -> None:
     med_exists = any(med == target_med for med in meds)
     if parts_len == 2:
         if med_exists:
-            # delete
-            pass
+            db.delete_med(target_med)
         else:
-            # not found
-            pass
+            send_error(f'{target_med} not found', message)
         return
     new_color = parts[2]
     if med_exists:
-        # update
-        pass
+        db.update_med(new_color, target_med)
     else:
-        # add
+        db.add_med(new_color, target_med)
         pass
-
-# TODO(#3): color command
-# add/remove/update color-med pairs
