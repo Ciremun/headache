@@ -83,7 +83,7 @@ async def color_command(message: discord.Message) -> None:
         await message.channel.send('\n'.join(f'{med[1]} - {med[0]}' for med in meds))
         return
     target_med = parts[1]
-    med_exists = any(med == target_med for med in meds)
+    med_exists = any(med[1] == target_med for med in meds)
     if parts_len == 2:
         if med_exists:
             db.delete_med(target_med)
