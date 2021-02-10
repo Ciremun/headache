@@ -88,11 +88,10 @@ async def color_command(message: discord.Message) -> None:
         if med_exists:
             db.delete_med(target_med)
         else:
-            send_error(f'{target_med} not found', message)
+            await send_error(f'{target_med} not found', message)
         return
     new_color = parts[2]
     if med_exists:
         db.update_med(new_color, target_med)
     else:
         db.add_med(new_color, target_med)
-        pass
