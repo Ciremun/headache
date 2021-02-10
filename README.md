@@ -24,7 +24,7 @@
 
 |   cmd     |                  args                     |         description            |
 |-----------|-------------------------------------------|--------------------------------|
-| `add`     | `<points> <med>`                          | add plot note                  |
+| `add`     | `<points> <med> [date:Y-m-d H:M]`         | add plot note                  |
 | `pop`     |                                           | delete last note               |
 | `plot`    |                                           | generate plot image            |
 | `exec`    | `code block`                              | execute Python code            |

@@ -40,7 +40,11 @@ async def add_command(message: discord.Message) -> None:
     parts = message.content.split(' ')
     points = int(parts[1])
     med = parts[2]
-    date = datetime.now()
+    opt_date = parts[3:5]
+    if opt_date:
+        date = datetime.strptime(' '.join(opt_date), '%Y-%m-%d %H:%M')
+    else:
+        date = datetime.now()
     db.add_note(date, points, med)
 
 @command('exec')
@@ -99,5 +103,3 @@ async def color_command(message: discord.Message) -> None:
         db.update_med(new_color, target_med)
     else:
         db.add_med(new_color, target_med)
-
-# TODO(#9): optional date args for the add command
