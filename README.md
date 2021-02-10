@@ -28,3 +28,4 @@
 | `pop`     |                                           | delete last note               |
 | `plot`    |                                           | generate plot image            |
 | `exec`    | `code block`                              | execute Python code            |
+| `color`   | `[med] [color]`                           | get/add/delete/update meds     |

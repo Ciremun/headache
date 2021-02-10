@@ -96,6 +96,5 @@ async def color_command(message: discord.Message) -> None:
     else:
         db.add_med(new_color, target_med)
 
-# TODO(#7): document the color command
 # TODO(#8): validate that new_color is a 6 digit hex
 # TODO(#9): optional date args for the add command
