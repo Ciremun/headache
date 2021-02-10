@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from typing import Callable, Any
 from io import BytesIO
@@ -11,7 +12,7 @@ from .plot import gen_plot
 from .classes import Note
 
 commands = {}
-
+hex_color_regex = re.compile(r'^#[A-Fa-f0-9]{6}$')
 
 async def send_error(err: str, message: discord.Message) -> None:
     error_message = await message.channel.send(err)
@@ -91,10 +92,12 @@ async def color_command(message: discord.Message) -> None:
             await send_error(f'{target_med} not found', message)
         return
     new_color = parts[2]
+    if not re.match(hex_color_regex, new_color):
+        await send_error(f'{new_color} is not a valid hex color', message)
+        return
     if med_exists:
         db.update_med(new_color, target_med)
     else:
         db.add_med(new_color, target_med)
 
-# TODO(#8): validate that new_color is a 6 digit hex
 # TODO(#9): optional date args for the add command
