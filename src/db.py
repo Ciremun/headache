@@ -55,7 +55,7 @@ def add_note(date: datetime, points: int, med: str) -> None:
 
 @db
 def get_notes() -> List[Tuple[datetime, int, str]]:
-    cursor.execute('select d, points, med from notes')
+    cursor.execute('select d, points, med from notes order by date')
     return cursor.fetchall()
 
 
