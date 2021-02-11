@@ -34,7 +34,9 @@ def command(name: str) -> Callable:
         return wrapper
     return decorator
 
-
+# TODO(#10): insert date before the last note
+# currently notes with an optional date are appended to the list
+# if the date was before the last note's, it should insert the note according to the date
 @command('add')
 async def add_command(message: discord.Message) -> None:
     parts = message.content.split(' ')
